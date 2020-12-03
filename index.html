@@ -1,0 +1,18 @@
+---
+title: projects...
+---
+<ul>
+  {% for item in site.static_files %}
+  {% assign steps = item.path | split: '/' %}
+  {% if steps[2] == 'index.html' %}
+  {% assign dir = steps[1] %}
+  <li>
+    <a href="/{{ dir }}/"> {{ dir }}</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>
+
+<hr />
+
+{{ site.time }}
