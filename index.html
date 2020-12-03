@@ -1,0 +1,16 @@
+---
+title: projects...
+---
+<a href="counter">counter</a>
+
+<hr/>
+
+{{ site.time }}
+
+<ul>
+  {% for item in site.static_files %}
+  <li>
+    {{ item.path }}
+  </li>
+  {% endfor %}
+</ul>
