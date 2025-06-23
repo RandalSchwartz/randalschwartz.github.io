@@ -3,13 +3,20 @@ title: projects...
 ---
 <ul>
   {% for item in site.static_files %}
-  {% assign steps = item.path | split: '/' %}
-  {% if steps[2] == 'index.html' %}
-  {% assign dir = steps[1] %}
+    {% assign path_parts = item.path | remove_first: '/' | split: '/' %}
+    {% comment %} We are looking for paths like "subdir/index.html", which means 2 parts after splitting. {% endcomment %}
+    {% if path_parts.size == 2 and path_parts[1] == 'index.html' %}
+      {% assign dir_name = path_parts[0] %}
+      {% comment %}
+        Exclude common Jekyll special directories or files that might somehow match the pattern.
+        Also ensure dir_name is not empty.
+      {% endcomment %}
+      {% unless dir_name == "" or dir_name == "_site" or dir_name == ".git" or dir_name == "assets" or dir_name == "node_modules" or dir_name == "vendor" %}
   <li>
-    <a href="/{{ dir }}/"> {{ dir }}</a>
+    <a href="{{ site.baseurl }}/{{ dir_name }}/"> {{ dir_name }}</a>
   </li>
-  {% endif %}
+      {% endunless %}
+    {% endif %}
   {% endfor %}
 </ul>
 
